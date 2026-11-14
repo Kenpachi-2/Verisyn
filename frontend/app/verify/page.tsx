@@ -31,7 +31,7 @@ export default function VerifyPage() {
 
   return (
     <main className="standalone-page">
-      <Link className="standalone-brand" href="/"> <span className="brand-mark">v<span>.</span></span> verisyn</Link>
+      <Link className="standalone-brand" href="/"> <img className="brand-symbol" src="/verisyn-symbol.svg" alt="Verisyn logo" /> verisyn</Link>
       <div className="eyebrow">CREDENTIAL AUTHENTICITY</div>
       <h1>Verify a credential.</h1>
       <p className="subtitle">Check a credential reference against the Verisyn registry.</p>
