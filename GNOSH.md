@@ -4,7 +4,7 @@ This file gives AI coding agents project-specific context. It is not a substitut
 
 ## Project
 
-Credora is a Gno-native credential registry and dApp. The initial network target is Gno Onyx testnet (`onyx-1`).
+Verisyn is a Gno-native credential registry and dApp. The initial network target is Gno Onyx testnet (`onyx-1`).
 
 ## Rules
 
