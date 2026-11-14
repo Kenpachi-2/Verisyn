@@ -1,4 +1,4 @@
-# Credora — Onyx testnet deployment plan
+# Verisyn — Onyx testnet deployment plan
 
 **Status: prepared, not deployed.** This document is a deployment checklist. No transaction has been signed or broadcast. The deployer wallet is confirmed by the maintainer as controlled by them, but no private key or signing capability has been shared.
 
@@ -90,4 +90,4 @@ That command signs and broadcasts a state-changing transaction. No command with 
 3. Query `IsCredentialValid` for a deliberately nonexistent test ID and confirm it returns `false`.
 4. Only then update the frontend's live status to reflect that the realm has been deployed.
 
-Deployment alone does not make Credora production-ready. The frontend currently checks registry validity only; document digest comparison, issuer due diligence, holder consent, secure off-chain storage, admin recovery/governance, and independent security review remain outstanding.
+Deployment alone does not make Verisyn production-ready. The frontend currently checks registry validity only; document digest comparison, issuer due diligence, holder consent, secure off-chain storage, admin recovery/governance, and independent security review remain outstanding.
