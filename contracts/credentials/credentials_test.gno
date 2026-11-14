@@ -21,13 +21,13 @@ func TestRequestIssuerCreatesInactiveRequest(cur realm, t *testing.T) {
 	issuerAddress := testAddress("issuer-main")
 	testing.SetRealm(testing.NewUserRealm(issuerAddress))
 
-	RequestIssuer(cross(cur), "Credora Test Institute")
+	RequestIssuer(cross(cur), "Verisyn Test Institute")
 
 	issuer := GetIssuer(issuerAddress)
 	if issuer.Address != issuerAddress {
 		t.Fatalf("expected issuer address %s, got %s", issuerAddress, issuer.Address)
 	}
-	if issuer.Name != "Credora Test Institute" {
+	if issuer.Name != "Verisyn Test Institute" {
 		t.Fatalf("expected issuer name to be preserved, got %q", issuer.Name)
 	}
 	if issuer.Active {
