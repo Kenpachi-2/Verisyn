@@ -1,9 +1,9 @@
-# Credora architecture
+# Verisyn architecture
 
 ## Product actors
 
 1. **Credential holder** — controls a wallet and chooses which credentials to present.
-2. **Issuing organisation** — an institution authorised by Credora governance to issue credentials.
+2. **Issuing organisation** — an institution authorised by Verisyn governance to issue credentials.
 3. **Verifier** — an employer or other relying party checking a presented credential.
 4. **Registry administrator** — approves issuer accounts during the initial testnet phase.
 
