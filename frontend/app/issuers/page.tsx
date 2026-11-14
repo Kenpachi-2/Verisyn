@@ -57,7 +57,7 @@ export default function IssuersPage() {
 
   return (
     <main className="standalone-page">
-      <Link className="standalone-brand" href="/"> <span className="brand-mark">c<span>.</span></span> credora</Link>
+      <Link className="standalone-brand" href="/"> <span className="brand-mark">v<span>.</span></span> verisyn</Link>
       <div className="eyebrow">FOR EDUCATION & CERTIFICATION PROVIDERS</div>
       <h1>Become a trusted issuer.</h1>
       <p className="subtitle">A transparent route for organisations to issue verifiable qualifications.</p>
