@@ -67,14 +67,24 @@ func ApproveIssuer(cur realm, issuerAddress address) {
 }
 
 // DisableIssuer prevents an organisation from issuing further credentials.
-// Existing credentials remain in the registry and can still be inspected.
-func DisableIssuer(cur realm, issuerAddress address) {
+// The admin chooses whether existing credentials should also be revoked.
+func DisableIssuer(cur realm, issuerAddress address, invalidateExisting bool) {
 	requireAdmin(cur)
+
 	issuer := issuers[issuerAddress]
 	if issuer == nil {
 		panic("issuer not found")
 	}
+
 	issuer.Active = false
+
+	if invalidateExisting {
+		for _, credential := range credentials {
+			if credential.Issuer == issuerAddress {
+				credential.Revoked = true
+			}
+		}
+	}
 }
 
 // IssueCredential records a credential digest. The actual document and
