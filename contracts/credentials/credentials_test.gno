@@ -153,7 +153,7 @@ func TestAdminCanDisableIssuer(cur realm, t *testing.T) {
 
 	testing.SetRealm(testing.NewUserRealm(admin))
 	ApproveIssuer(cross(cur), issuerAddress)
-	DisableIssuer(cross(cur), issuerAddress)
+	DisableIssuer(cross(cur), issuerAddress, false)
 
 	if IsApprovedIssuer(issuerAddress) {
 		t.Fatal("disabled issuer must no longer be approved")
@@ -174,7 +174,7 @@ func TestNonAdminCannotDisableIssuer(cur realm, t *testing.T) {
 
 	testing.SetRealm(testing.NewUserRealm(testAddress("attacker")))
 	expectPanic(t, func() {
-		DisableIssuer(cross(cur), issuerAddress)
+		DisableIssuer(cross(cur), issuerAddress, false)
 	})
 
 	if !IsApprovedIssuer(issuerAddress) {
@@ -320,7 +320,7 @@ func TestDisabledIssuerCannotIssueCredential(cur realm, t *testing.T) {
 	RequestIssuer(cross(cur), "Disabled Institute")
 	testing.SetRealm(testing.NewUserRealm(admin))
 	ApproveIssuer(cross(cur), issuerAddress)
-	DisableIssuer(cross(cur), issuerAddress)
+	DisableIssuer(cross(cur), issuerAddress, false)
 	testing.SetRealm(testing.NewUserRealm(issuerAddress))
 
 	expectPanic(t, func() {
@@ -336,5 +336,81 @@ func TestExpiredCredentialIsNotValid(cur realm, t *testing.T) {
 	}
 	if IsCredentialValid("CRED-EXPIRED-STATUS") {
 		t.Fatal("expired credential must not be considered valid")
+	}
+}
+
+func TestAdminCanDisableIssuerAndRevokeExistingCredentials(cur realm, t *testing.T) {
+	issuerAddress := testAddress("issuer-revoke")
+	holderAddress := testAddress("holder-revoke")
+	admin = testAddress("admin-revoke")
+
+	testing.SetRealm(testing.NewUserRealm(issuerAddress))
+	RequestIssuer(cross(cur), "Revocation On Disable Institute")
+
+	testing.SetRealm(testing.NewUserRealm(admin))
+	ApproveIssuer(cross(cur), issuerAddress)
+
+	testing.SetRealm(testing.NewUserRealm(issuerAddress))
+	IssueCredential(
+		cross(cur),
+		"CRED-REVOKE-ON-DISABLE",
+		holderAddress,
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		0,
+	)
+
+	if !IsCredentialValid("CRED-REVOKE-ON-DISABLE") {
+		t.Fatal("credential should initially be valid")
+	}
+
+	testing.SetRealm(testing.NewUserRealm(admin))
+	DisableIssuer(cross(cur), issuerAddress, true)
+
+	if IsApprovedIssuer(issuerAddress) {
+		t.Fatal("issuer should be disabled")
+	}
+
+	if IsCredentialValid("CRED-REVOKE-ON-DISABLE") {
+		t.Fatal("credential should be invalidated when admin chooses true")
+	}
+
+	if !GetCredential("CRED-REVOKE-ON-DISABLE").Revoked {
+		t.Fatal("credential should be marked as revoked")
+	}
+}
+
+func TestAdminCanDisableIssuerWithoutRevokingExistingCredentials(cur realm, t *testing.T) {
+	issuerAddress := testAddress("issuer-keep-valid")
+	holderAddress := testAddress("holder-keep-valid")
+	admin = testAddress("admin-keep-valid")
+
+	testing.SetRealm(testing.NewUserRealm(issuerAddress))
+	RequestIssuer(cross(cur), "Keep Valid Institute")
+
+	testing.SetRealm(testing.NewUserRealm(admin))
+	ApproveIssuer(cross(cur), issuerAddress)
+
+	testing.SetRealm(testing.NewUserRealm(issuerAddress))
+	IssueCredential(
+		cross(cur),
+		"CRED-KEEP-VALID",
+		holderAddress,
+		"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+		0,
+	)
+
+	testing.SetRealm(testing.NewUserRealm(admin))
+	DisableIssuer(cross(cur), issuerAddress, false)
+
+	if IsApprovedIssuer(issuerAddress) {
+		t.Fatal("issuer should be disabled")
+	}
+
+	if !IsCredentialValid("CRED-KEEP-VALID") {
+		t.Fatal("existing credential should remain valid")
+	}
+
+	if GetCredential("CRED-KEEP-VALID").Revoked {
+		t.Fatal("existing credential should not be marked as revoked")
 	}
 }
