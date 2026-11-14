@@ -55,7 +55,7 @@ export async function GET(
       return Response.json(
         {
           status: "realm_not_deployed",
-          error: "The Credora registry realm is not deployed at the configured Onyx address yet.",
+          error: "The Verisyn registry realm is not deployed at the configured Onyx address yet.",
           chainId: GNO_NETWORK.chainId,
           realmPath: GNO_NETWORK.realmPath,
         },
