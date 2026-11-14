@@ -192,5 +192,5 @@ func isValidSHA256Hex(value string) bool {
 
 // Render provides a minimal realm landing page.
 func Render(path string) string {
-	return "# Credora credential registry\n\nExperimental Gno realm. See the [project repository](https://github.com/Kenpachi-2/Credora) for development status and security notes.\n"
+	return "# Verisyn credential registry\n\nExperimental Gno realm. See the [project repository](https://github.com/Kenpachi-2/Verisyn) for development status and security notes.\n"
 }
