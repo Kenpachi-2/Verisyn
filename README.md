@@ -1,8 +1,8 @@
-# Credora
+# Verisyn
 
 **A Gno-native credential wallet and verification protocol.**
 
-Credora aims to make qualifications easier to manage, harder to forge, and simpler to verify. Individuals will be able to collect and selectively share credentials; approved institutions will issue them; employers and other relying parties will verify their authenticity and current status.
+Verisyn aims to make qualifications easier to manage, harder to forge, and simpler to verify. Individuals will be able to collect and selectively share credentials; approved institutions will issue them; employers and other relying parties will verify their authenticity and current status.
 
 > **Status: early development.** This repository is a starting point, not an audited protocol or a production-ready credential system. Do not use it for real personal data or high-stakes credential decisions.
 
