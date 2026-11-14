@@ -1,4 +1,4 @@
-# Credora frontend
+# Verisyn frontend
 
 Next.js App Router + TypeScript interface prototype.
 
