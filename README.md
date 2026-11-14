@@ -1,5 +1,7 @@
 # Verisyn
 
+![Verisyn logo](frontend/public/verisyn-symbol.svg)
+
 **A Gno-native credential wallet and verification protocol.**
 
 Verisyn aims to make qualifications easier to manage, harder to forge, and simpler to verify. Individuals will be able to collect and selectively share credentials; approved institutions will issue them; employers and other relying parties will verify their authenticity and current status.
