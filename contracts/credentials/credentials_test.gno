@@ -17,6 +17,18 @@ func expectPanic(t *testing.T, fn func()) {
 	}
 }
 
+func TestAdminCapturedFromInit(cur realm, t *testing.T) {
+    expectedAdmin := cur.Previous().Address()
+
+    if admin != expectedAdmin {
+        t.Fatalf(
+            "admin was not captured from init caller: expected %s, got %s",
+            expectedAdmin,
+            admin,
+        )
+    }
+}
+
 func TestRequestIssuerCreatesInactiveRequest(cur realm, t *testing.T) {
 	issuerAddress := testAddress("issuer-main")
 	testing.SetRealm(testing.NewUserRealm(issuerAddress))
