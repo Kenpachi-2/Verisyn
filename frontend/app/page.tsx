@@ -84,7 +84,7 @@ export default function Home() {
     <main className="app-shell">
       <aside className="sidebar">
         <a className="brand" href="#" onClick={() => setActiveNav("Overview")}>
-          <span className="brand-mark">v<span>.</span></span>
+          <img className="brand-symbol" src="/verisyn-symbol.svg" alt="Verisyn logo" />
           <span className="brand-name">verisyn</span>
         </a>
         <div className="workspace-label">WORKSPACE</div>
