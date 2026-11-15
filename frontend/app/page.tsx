@@ -71,7 +71,7 @@ export default function Home() {
   }
 
   function copyDemoLink() {
-    const link = "https://credora.example/verify/CR-2025-00841";
+    const link = "https://verisyn.example/verify/CR-2025-00841";
     if (navigator.clipboard?.writeText) {
       void navigator.clipboard.writeText(link).then(() => setToast("Demo verification link copied")).catch(() => setToast(link));
     } else {
@@ -84,8 +84,8 @@ export default function Home() {
     <main className="app-shell">
       <aside className="sidebar">
         <a className="brand" href="#" onClick={() => setActiveNav("Overview")}>
-          <span className="brand-mark">c<span>.</span></span>
-          <span className="brand-name">credora</span>
+          <img className="brand-symbol" src="/verisyn-symbol.svg" alt="Verisyn logo" />
+          <span className="brand-name">verisyn</span>
         </a>
         <div className="workspace-label">WORKSPACE</div>
         <nav className="side-nav" aria-label="Main navigation">
@@ -201,7 +201,7 @@ export default function Home() {
       </section>
 
       {showAdd && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowAdd(false); }}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="add-title"><button className="modal-close" onClick={() => setShowAdd(false)} aria-label="Close">×</button><div className="eyebrow">GROW YOUR COLLECTION</div><h2 id="add-title">Add a credential</h2><p>This creates a local demo entry only. Issuer-backed issuance will be connected later.</p><form onSubmit={addDemoCredential}><label>Credential name<input required value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="e.g. MSc Data Science" /></label><label>Issuing organisation<input required value={newIssuer} onChange={(e) => setNewIssuer(e.target.value)} placeholder="e.g. University of Leeds" /></label><div className="modal-actions"><button type="button" className="outline-button" onClick={() => setShowAdd(false)}>Cancel</button><button className="primary-button" type="submit">Add demo credential</button></div></form></section></div>}
-      {showShare && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowShare(false); }}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="share-title"><button className="modal-close" onClick={() => setShowShare(false)} aria-label="Close">×</button><div className="eyebrow">PRIVATE BY DESIGN</div><h2 id="share-title">You’re in control.</h2><p>Credora is being designed so you choose which credential details to present. The original document stays off-chain; the Gno registry stores a minimal verification record.</p><div className="privacy-points"><div><span>01</span><strong>Choose a credential</strong><small>Select the qualification you want to prove.</small></div><div><span>02</span><strong>Share a presentation</strong><small>Give a verifier only the information needed.</small></div><div><span>03</span><strong>Verify its status</strong><small>Check issuer authorisation and revocation on Gno.</small></div></div><button className="primary-button modal-full" onClick={() => { setShowShare(false); setActiveNav("Share & verify"); }}>Got it</button></section></div>}
+      {showShare && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowShare(false); }}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="share-title"><button className="modal-close" onClick={() => setShowShare(false)} aria-label="Close">×</button><div className="eyebrow">PRIVATE BY DESIGN</div><h2 id="share-title">You’re in control.</h2><p>Verisyn is being designed so you choose which credential details to present. The original document stays off-chain; the Gno registry stores a minimal verification record.</p><div className="privacy-points"><div><span>01</span><strong>Choose a credential</strong><small>Select the qualification you want to prove.</small></div><div><span>02</span><strong>Share a presentation</strong><small>Give a verifier only the information needed.</small></div><div><span>03</span><strong>Verify its status</strong><small>Check issuer authorisation and revocation on Gno.</small></div></div><button className="primary-button modal-full" onClick={() => { setShowShare(false); setActiveNav("Share & verify"); }}>Got it</button></section></div>}
       {toast && <div className="toast" role="status">{toast}</div>}
     </main>
   );

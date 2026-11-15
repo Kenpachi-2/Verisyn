@@ -1,4 +1,4 @@
-# Credora roadmap
+# Verisyn roadmap
 
 ## Milestone 0 — Repository and contract foundation
 

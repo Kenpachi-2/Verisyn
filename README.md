@@ -1,8 +1,10 @@
-# Credora
+# Verisyn
+
+![Verisyn logo](frontend/public/verisyn-symbol.svg)
 
 **A Gno-native credential wallet and verification protocol.**
 
-Credora aims to make qualifications easier to manage, harder to forge, and simpler to verify. Individuals will be able to collect and selectively share credentials; approved institutions will issue them; employers and other relying parties will verify their authenticity and current status.
+Verisyn aims to make qualifications easier to manage, harder to forge, and simpler to verify. Individuals will be able to collect and selectively share credentials; approved institutions will issue them; employers and other relying parties will verify their authenticity and current status.
 
 > **Status: early development.** This repository is a starting point, not an audited protocol or a production-ready credential system. Do not use it for real personal data or high-stakes credential decisions.
 
@@ -31,7 +33,7 @@ docs/                    Architecture, threat model, and roadmap
 | Credential issuance and revocation | Initial implementation |
 | Automated contract tests | Initial tests; expand before deployment |
 | Frontend UI | Initial dashboard, issuer, and verification previews |
-| Wallet connection and live Gno reads/writes | Not connected |
+| Adena wallet connection and Onyx chain guard | Implemented in issuer preview |\n| Read-only Onyx credential status query | Implemented; waiting for realm deployment |\n| Wallet-backed issuer registration / issuance writes | Not connected |
 | Encrypted document storage | Not started |
 | Independent security review | Not started |
 

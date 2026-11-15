@@ -1,6 +1,9 @@
 package credentials
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
 // admin is captured from the deployer during one-time realm initialisation.
 var admin address
@@ -34,14 +37,7 @@ func init(cur realm) {
 	admin = cur.Previous().Address()
 }
 
-func requireCurrent(cur realm) {
-	if !cur.IsCurrent() {
-		panic("invalid realm context")
-	}
-}
-
 func requireAdmin(cur realm) {
-	requireCurrent(cur)
 	if cur.Previous().Address() != admin {
 		panic("permission denied: registry admin required")
 	}
@@ -50,9 +46,8 @@ func requireAdmin(cur realm) {
 // RequestIssuer lets an organisation request issuer status. A request is
 // inactive until the registry administrator approves it.
 func RequestIssuer(cur realm, name string) {
-	requireCurrent(cur)
 	caller := cur.Previous().Address()
-	if name == "" {
+	if strings.TrimSpace(name) == "" {
 		panic("issuer name is required")
 	}
 	if issuers[caller] != nil {
@@ -72,26 +67,35 @@ func ApproveIssuer(cur realm, issuerAddress address) {
 }
 
 // DisableIssuer prevents an organisation from issuing further credentials.
-// Existing credentials remain in the registry and can still be inspected.
-func DisableIssuer(cur realm, issuerAddress address) {
+// The admin chooses whether existing credentials should also be revoked.
+func DisableIssuer(cur realm, issuerAddress address, invalidateExisting bool) {
 	requireAdmin(cur)
+
 	issuer := issuers[issuerAddress]
 	if issuer == nil {
 		panic("issuer not found")
 	}
+
 	issuer.Active = false
+
+	if invalidateExisting {
+		for _, credential := range credentials {
+			if credential.Issuer == issuerAddress {
+				credential.Revoked = true
+			}
+		}
+	}
 }
 
 // IssueCredential records a credential digest. The actual document and
 // identifying claims must be delivered and stored off-chain.
 func IssueCredential(cur realm, id string, holder address, documentHash string, expiresAt int64) {
-	requireCurrent(cur)
 	issuerAddress := cur.Previous().Address()
 	issuer := issuers[issuerAddress]
 	if issuer == nil || !issuer.Active {
 		panic("caller is not an approved issuer")
 	}
-	if id == "" {
+	if strings.TrimSpace(id) == "" {
 		panic("credential ID is required")
 	}
 	if holder == address("") {
@@ -121,7 +125,6 @@ func IssueCredential(cur realm, id string, holder address, documentHash string, 
 
 // RevokeCredential can only be called by the organisation that issued it.
 func RevokeCredential(cur realm, id string) {
-	requireCurrent(cur)
 	caller := cur.Previous().Address()
 	credential := credentials[id]
 	if credential == nil {
@@ -189,5 +192,5 @@ func isValidSHA256Hex(value string) bool {
 
 // Render provides a minimal realm landing page.
 func Render(path string) string {
-	return "# Credora credential registry\n\nExperimental Gno realm. See the [project repository](https://github.com/Kenpachi-2/Credora) for development status and security notes.\n"
+	return "# Verisyn credential registry\n\nExperimental Gno realm. See the [project repository](https://github.com/Kenpachi-2/Verisyn) for development status and security notes.\n"
 }
